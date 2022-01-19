@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль Пользователя</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>Username: </td> <td th:text="${user.getUsername()}"></td>
+    </tr>
+    <tr>
+        <td>Firstname: </td> <td th:text="${user.getFirstName()}"></td>
+    </tr>
+    <tr>
+        <td>Lastname: </td> <td th:text="${user.getLastName()}"></td>
+    </tr>
+    <tr>
+        <td>Mail: </td> <td th:text="${user.getMail()}"></td>
+    </tr>
+    <tr>
+        <td>Roles: </td> <td th:each="role: ${roles}" th:text="${role.getRole()} "></td>
+    </tr>
+
+</table>
+    <a th:href="@{/logout}">logout</a>
+</body>
+</html>
