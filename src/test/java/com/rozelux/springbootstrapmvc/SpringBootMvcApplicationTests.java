@@ -1,4 +1,4 @@
-package com.rozelux.springbootmvc;
+package com.rozelux.springbootstrapmvc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

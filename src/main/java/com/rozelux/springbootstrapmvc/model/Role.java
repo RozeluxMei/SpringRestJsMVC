@@ -1,4 +1,4 @@
-package com.rozelux.springbootmvc.model;
+package com.rozelux.springbootstrapmvc.model;
 
 import org.springframework.security.core.GrantedAuthority;
 

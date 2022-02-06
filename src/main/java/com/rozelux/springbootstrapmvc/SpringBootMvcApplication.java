@@ -1,4 +1,4 @@
-package com.rozelux.springbootmvc;
+package com.rozelux.springbootstrapmvc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

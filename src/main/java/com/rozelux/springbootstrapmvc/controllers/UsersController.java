@@ -1,9 +1,9 @@
-package com.rozelux.springbootmvc.controllers;
+package com.rozelux.springbootstrapmvc.controllers;
 
-import com.rozelux.springbootmvc.model.Role;
-import com.rozelux.springbootmvc.model.User;
-import com.rozelux.springbootmvc.service.RoleService;
-import com.rozelux.springbootmvc.service.UserService;
+import com.rozelux.springbootstrapmvc.model.Role;
+import com.rozelux.springbootstrapmvc.model.User;
+import com.rozelux.springbootstrapmvc.service.RoleService;
+import com.rozelux.springbootstrapmvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -27,8 +27,11 @@ public class UsersController {
     }
 
     @GetMapping("/admin")
-    public String index (Model model){
-        model.addAttribute("users", userService.listUsers());
+    public String index (@AuthenticationPrincipal User user, Model model){
+        model.addAttribute("user", user);
+        model.addAttribute("new_user", new User());
+        model.addAttribute( "users", userService.listUsers());
+        model.addAttribute("roles", roleService.listRole());
         return "admin/index";
     }
 
@@ -40,7 +43,7 @@ public class UsersController {
     }
 
     @PostMapping("/admin")
-    public String create (@ModelAttribute("user") User user, @RequestParam(value = "checkBoxRoles") String [] checkBoxRoles){
+    public String create (@ModelAttribute("user") User user, @RequestParam(value = "SelectedRoles") String [] checkBoxRoles){
         Set<Role> roles = new HashSet<>();
 
         for (String role: checkBoxRoles
@@ -78,7 +81,7 @@ public class UsersController {
     }
 
     @PatchMapping ("admin/{id}")
-    public String update (@ModelAttribute("user") User user, @RequestParam(value = "checkBoxRoles") String [] checkBoxRoles){
+    public String update (@ModelAttribute("user") User user, @RequestParam(value = "SelectedEditRoles") String [] checkBoxRoles){
         Set<Role> roles = new HashSet<>();
 
         for (String role: checkBoxRoles
@@ -91,7 +94,7 @@ public class UsersController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping ("admin/{id}/remove")
+    @DeleteMapping ("admin/{id}")
     public String remove (@PathVariable("id") long id){
         userService.remove(id);
         return "redirect:/admin";

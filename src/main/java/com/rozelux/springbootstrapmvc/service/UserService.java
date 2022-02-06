@@ -1,6 +1,6 @@
-package com.rozelux.springbootmvc.service;
+package com.rozelux.springbootstrapmvc.service;
 
-import com.rozelux.springbootmvc.model.User;
+import com.rozelux.springbootstrapmvc.model.User;
 import java.util.List;
 
 public interface UserService {

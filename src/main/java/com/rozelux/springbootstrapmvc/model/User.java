@@ -1,4 +1,4 @@
-package com.rozelux.springbootmvc.model;
+package com.rozelux.springbootstrapmvc.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,8 +22,8 @@ public class User implements UserDetails {
     private String lastName;
     @Column (name = "mail")
     private String mail;
-    @Column (name = "username")
-    private String username;
+    @Column (name = "age")
+    private int age;
     @Column (name = "password")
     private String password;
 
@@ -36,11 +36,11 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User (String firstName, String lastName, String mail, String username, String password) {
+    public User (String firstName, String lastName, String mail, int age, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
-        this.username = username;
+        this.age = age;
         this.password = password;
     }
 
@@ -91,13 +91,15 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public int getAge(){return age;}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -111,7 +113,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return mail;
     }
 
     @Override
@@ -139,23 +141,23 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return id == user.id && firstName.equals(user.firstName) && lastName.equals(user.lastName) && mail.equals(user.mail) && username.equals(user.username) && password.equals(user.password);
+        return id == user.id && firstName.equals(user.firstName) && lastName.equals(user.lastName) && mail.equals(user.mail) && age == (user.age) && password.equals(user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username);
+        return Objects.hash(id, age);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", mail='" + mail + '\'' +
-                ", username='" + username + '\'' +
-                ", hash='" + hashCode() + '\'' +
+                ", firstName ='" + firstName + '\'' +
+                ", lastName ='" + lastName + '\'' +
+                ", mail ='" + mail + '\'' +
+                ", age ='" + age + '\'' +
+                ", hash ='" + hashCode() + '\'' +
                 '}';
     }
 }

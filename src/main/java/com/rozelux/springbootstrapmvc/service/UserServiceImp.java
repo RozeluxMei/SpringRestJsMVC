@@ -1,7 +1,7 @@
-package com.rozelux.springbootmvc.service;
+package com.rozelux.springbootstrapmvc.service;
 
-import com.rozelux.springbootmvc.DAO.UserRepository;
-import com.rozelux.springbootmvc.model.User;
+import com.rozelux.springbootstrapmvc.DAO.UserRepository;
+import com.rozelux.springbootstrapmvc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

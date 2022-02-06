@@ -1,7 +1,7 @@
-package com.rozelux.springbootmvc.service;
+package com.rozelux.springbootstrapmvc.service;
 
 
-import com.rozelux.springbootmvc.model.Role;
+import com.rozelux.springbootstrapmvc.model.Role;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package com.rozelux.springbootmvc.service;
+package com.rozelux.springbootstrapmvc.service;
 
-import com.rozelux.springbootmvc.DAO.RoleRepository;
-import com.rozelux.springbootmvc.model.Role;
+import com.rozelux.springbootstrapmvc.DAO.RoleRepository;
+import com.rozelux.springbootstrapmvc.model.Role;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

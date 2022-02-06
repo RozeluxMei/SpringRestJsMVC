@@ -1,4 +1,4 @@
-package com.rozelux.springbootmvc.security;
+package com.rozelux.springbootstrapmvc.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;

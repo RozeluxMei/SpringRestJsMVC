@@ -1,6 +1,6 @@
-package com.rozelux.springbootmvc.service;
+package com.rozelux.springbootstrapmvc.service;
 
-import com.rozelux.springbootmvc.DAO.UserRepository;
+import com.rozelux.springbootstrapmvc.DAO.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +16,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findUserByUsername(username);
+    public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+        return userRepository.findUserByMail(mail);
     }
 }

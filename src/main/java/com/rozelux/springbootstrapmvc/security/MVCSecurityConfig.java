@@ -1,4 +1,4 @@
-package com.rozelux.springbootmvc.security;
+package com.rozelux.springbootstrapmvc.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
