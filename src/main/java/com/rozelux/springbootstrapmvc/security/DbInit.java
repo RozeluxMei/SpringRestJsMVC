@@ -16,20 +16,29 @@ public class DbInit {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    RoleRepository roleRepository;
+
     @PostConstruct
     private void postConstruct(){
+        Role adminRole = new Role("ROLE_ADMIN");
+        Role userRole = new Role("ROLE_USER");
+        roleRepository.save(adminRole);
+        roleRepository.save(userRole);
+
         User admin = new User("admin","admin","admin@mail.ru", 35, "admin");
         HashSet<Role> adminRoles = new HashSet<>();
-        adminRoles.add(new Role("ROLE_USER"));
-        adminRoles.add(new Role("ROLE_ADMIN"));
+        adminRoles.add(adminRole);
+        adminRoles.add(userRole);
         admin.setRoles(adminRoles);
+
+        userRepository.save(admin);
 
         User user = new User("user", "user", "user@mail.ru", 30, "user");
         HashSet<Role> userRoles = new HashSet<>();
-        userRoles.add(new Role("ROLE_ADMIN"));
+        userRoles.add(userRole);
         user.setRoles(userRoles);
 
-        userRepository.save(admin);
         userRepository.save(user);
     }
 }
