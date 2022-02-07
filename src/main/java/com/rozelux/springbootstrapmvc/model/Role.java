@@ -16,7 +16,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "role")
     private String role;
 
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -67,15 +67,16 @@ public class Role implements GrantedAuthority {
 
     @Override
     public boolean equals(Object o) {
+        if (o == null) return false;
         if (this == o) return true;
         if (!(o instanceof Role)) return false;
         Role role1 = (Role) o;
-        return id == role1.id && role.equals(role1.role) ;
+        return getId() == role1.getId() && Objects.equals(getRole(), role1.getRole()) && Objects.equals(getUsers(), role1.getUsers());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, role);
+        return Objects.hash(getId(), getRole(), getUsers());
     }
 
     @Override
