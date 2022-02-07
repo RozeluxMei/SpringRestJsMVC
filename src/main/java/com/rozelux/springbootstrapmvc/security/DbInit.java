@@ -22,15 +22,19 @@ public class DbInit {
     @PostConstruct
     private void postConstruct(){
         Role adminRole = new Role("ROLE_ADMIN");
+        adminRole.setId(1);
         Role userRole = new Role("ROLE_USER");
+        userRole.setId(2);
+
         roleRepository.save(adminRole);
         roleRepository.save(userRole);
 
         User admin = new User("admin","admin","admin@mail.ru", 35, "admin");
         HashSet<Role> adminRoles = new HashSet<>();
-        adminRoles.add(adminRole);
-        adminRoles.add(userRole);
+        adminRoles.add(roleRepository.findRoleByRole("ROLE_ADMIN"));
+        adminRoles.add(roleRepository.findRoleByRole("ROLE_USER"));
         admin.setRoles(adminRoles);
+        admin.setId(1);
 
         userRepository.save(admin);
 
@@ -38,6 +42,7 @@ public class DbInit {
         HashSet<Role> userRoles = new HashSet<>();
         userRoles.add(userRole);
         user.setRoles(userRoles);
+        user.setId(2);
 
         userRepository.save(user);
     }
