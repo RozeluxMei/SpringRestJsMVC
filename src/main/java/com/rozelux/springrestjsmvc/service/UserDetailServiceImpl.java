@@ -1,6 +1,6 @@
-package com.rozelux.springbootstrapmvc.service;
+package com.rozelux.springrestjsmvc.service;
 
-import com.rozelux.springbootstrapmvc.DAO.UserRepository;
+import com.rozelux.springrestjsmvc.DAO.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

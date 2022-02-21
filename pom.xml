@@ -9,12 +9,14 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.rozelux</groupId>
-    <artifactId>SpringBootMVC</artifactId>
+    <artifactId>SpringRestJsMVC</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>SpringBootMVC</name>
-    <description>SpringBootMVC</description>
+    <name>SpringRestJsMVC</name>
+    <description>SpringRestJsMVC</description>
     <properties>
         <java.version>11</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.targen>1.8</maven.compiler.targen>
     </properties>
     <dependencies>
         <dependency>
@@ -42,6 +44,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>5.6.1</version>
+        </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -57,6 +67,8 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+
     </dependencies>
 
     <build>

@@ -1,4 +1,4 @@
-package com.rozelux.springbootstrapmvc.security;
+package com.rozelux.springrestjsmvc.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

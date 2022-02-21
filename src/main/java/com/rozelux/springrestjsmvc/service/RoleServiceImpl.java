@@ -1,7 +1,7 @@
-package com.rozelux.springbootstrapmvc.service;
+package com.rozelux.springrestjsmvc.service;
 
-import com.rozelux.springbootstrapmvc.DAO.RoleRepository;
-import com.rozelux.springbootstrapmvc.model.Role;
+import com.rozelux.springrestjsmvc.DAO.RoleRepository;
+import com.rozelux.springrestjsmvc.model.Role;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +22,7 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
-    public List<Role> listRole() {
+    public List<Role> findAllRoles() {
         return roleRepository.findAll();
     }
 

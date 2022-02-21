@@ -1,4 +1,4 @@
-package com.rozelux.springbootstrapmvc.security;
+package com.rozelux.springrestjsmvc.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -16,11 +16,11 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_ADMIN")) {
-            httpServletResponse.sendRedirect("/admin/");
-        } else if (roles.contains("ROLE_USER")){
-            httpServletResponse.sendRedirect("user/");
-        } else {
             httpServletResponse.sendRedirect("/");
+        } else if (roles.contains("ROLE_USER")){
+            httpServletResponse.sendRedirect("/");
+        } else {
+            httpServletResponse.sendRedirect("login/");
         }
     }
 }

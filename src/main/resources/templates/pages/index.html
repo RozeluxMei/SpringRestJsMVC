@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:security="http://www.springframework.org/security/tags">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <title>Main page</title>
+</head>
+
+<body class="bg-light">
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+    <div class="container-fluid">
+        <span class="navbar-text text-white">
+       <strong id="authMail">Mail</strong>
+            <span>with roles: </span>
+                <span id="authRoles">Roles</span>
+      </span>
+    </div>
+    <div class="collapse navbar-collapse show" id="navbarDark">
+        <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid"> <!--без него всё расползается-->
+    <div class="row vh-100"> <!--все табы-->
+        <div class="col-1 pe-0 bg-white"> <!--ряд для пилов-->
+
+            <div class="d-flex flex-column align-items-stretch nav nav-pills" id="v-pills-tab" role="tablist"
+                 aria-orientation="vertical">
+                <!--пил с админом-->
+                <a class="nav-link active" id="v-pills-admin-tab" data-bs-toggle="pill" href="#v-pills-admin" role="tab"
+                   aria-controls="v-pills-admin" aria-selected="true">Admin</a>
+                <!--пил с пользователем-->
+                <a class="nav-link" id="v-pills-user-tab" data-bs-toggle="pill" href="#v-pills-user" role="tab"
+                   aria-controls="v-pills-user" aria-selected="false">User</a>
+            </div>
+        </div>
+
+        <div class="col-10 ps-4 bg-light"> <!--ряд для табов-->
+            <!--Табы для пиллов слева-->
+            <div class="tab-content" id="v-pills-tabContent">
+                <!--Панелька админа-->
+                <div class="tab-pane fade active show" id="v-pills-admin" role="tabpanel"
+                     aria-labelledby="v-pills-admin-tab">
+
+                    <p class="h1">Admin panel</p>
+                    <!--Таб админа-->
+                    <!--навтаб "все юзеры" + "новый юзер"-->
+                    <nav class="nav nav-tabs" id="nav-tab">
+                        <a class="nav-link active" id="nav-allUsers-tab" data-bs-toggle="tab" href="#nav-allUsers"
+                           role="tab" aria-controls="nav-allUsers" aria-selected="true">All users</a>
+                        <a class="nav-link" id="nav-newUser-tab" data-bs-toggle="tab" href="#nav-newUser" role="tab"
+                           aria-controls="nav-newUser" aria-selected="false">New user</a>
+                    </nav>
+
+                    <div class="tab-content" id="nav-tabContent">
+                        <!--карточка со всеми пользователями-->
+                        <div class="tab-pane fade show active" id="nav-allUsers" role="tabpanel"
+                             aria-labelledby="nav-home-tab">
+                            <div class="pe-3 pt-3 ps-3">
+                                <div class="card">
+                                    <div class="card-header fw-bold">All users</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title border-bottom"></h5>
+                                        <!--таблица со всеми юзерами-->
+                                        <table class="table table-striped" id="usersTable">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">First Name</th>
+                                                <th scope="col">Last Name</th>
+                                                <th scope="col">Age</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Role</th>
+                                                <th scope="col">Edit</th>
+                                                <th scope="col">Delete</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-newUser" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <!--форма для нового пользователя-->
+                            <div class="pe-3 pt-3 ps-3">
+                                <div class="card">
+                                    <div class="card-header fw-bold">Add new user</div>
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title"></h5>
+                                        <!--формочка :3-->
+                                        <form>
+                                            <div class="form mx-auto col-md-3 align-content-center">
+                                                <label class="fw-bold" for="newFirstName">First name</label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="First name" id="newFirstName">
+                                                <label class="fw-bold" for="newLastName">Last name</label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Last name" id="newLastName">
+                                                <label class="fw-bold" for="newAge">Age</label>
+                                                <input type="number" class="form-control"
+                                                       placeholder="Age" id="newAge">
+                                                <label class="fw-bold" for="newMail">Email</label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Email" id="newMail">
+                                                <label class="fw-bold" for="newPassword">Password</label>
+                                                <input type="password" class="form-control"
+                                                       placeholder="Password" id="newPassword">
+                                                <div id="newRoles"></div>
+                                                <button type="submit" class="btn btn-success mt-2 mx-auto" id="addButton">Add new
+                                                    user
+                                                </button>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Панелька с инфой юзера-->
+                <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+                    <div class="bg-light">
+                        <div><h1>User information-page</h1></div>
+                        <div class="pe-3 pt-3 ps-3">
+                            <div class="card">
+                                <div class="card-header fw-bold">
+                                    About user
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title border-bottom"></h5>
+
+                                    <table class="table table-striped" id="userInformationTable">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Age</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Role</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--скрытое дефолтное модальное окно -->
+<div class="modal fade" id="someDefaultModal" tabindex="-1" role="dialog" aria-labelledby="someDefaultModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="someModalTitle">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+            </div>
+
+            <div class="modal-footer">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+<script src="/js/index.js"></script>
+</body>
+</html>

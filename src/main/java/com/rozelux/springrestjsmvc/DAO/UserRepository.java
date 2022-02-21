@@ -1,6 +1,6 @@
-package com.rozelux.springbootstrapmvc.DAO;
+package com.rozelux.springrestjsmvc.DAO;
 
-import com.rozelux.springbootstrapmvc.model.User;
+import com.rozelux.springrestjsmvc.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

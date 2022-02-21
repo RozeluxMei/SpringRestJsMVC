@@ -1,5 +1,7 @@
-package com.rozelux.springbootstrapmvc.model;
+package com.rozelux.springrestjsmvc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -27,7 +29,8 @@ public class User implements UserDetails {
     @Column (name = "password")
     private String password;
 
-    @ManyToMany (cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToMany (cascade = {CascadeType.MERGE,
+            CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -91,6 +94,8 @@ public class User implements UserDetails {
         this.id = id;
     }
 
+    public int getAge(){return age;}
+
     public void setAge(int age) {
         this.age = age;
     }
@@ -99,8 +104,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public int getAge(){return age;}
-
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -111,27 +115,32 @@ public class User implements UserDetails {
         return password;
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return mail;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

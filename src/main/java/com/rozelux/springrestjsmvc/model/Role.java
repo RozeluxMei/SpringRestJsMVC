@@ -1,5 +1,7 @@
-package com.rozelux.springbootstrapmvc.model;
+package com.rozelux.springrestjsmvc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -16,10 +18,8 @@ public class Role implements GrantedAuthority {
     @Column(name = "role")
     private String role;
 
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JsonBackReference
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
     public Role() {
@@ -56,11 +56,12 @@ public class Role implements GrantedAuthority {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers (Set<User> users) {
         this.users = users;
     }
 
     @Override
+    @JsonIgnore
     public String getAuthority() {
         return role;
     }
@@ -79,6 +80,7 @@ public class Role implements GrantedAuthority {
     }
 
     @Override
+    @JsonIgnore
     public String toString (){
         return this.role;
     }

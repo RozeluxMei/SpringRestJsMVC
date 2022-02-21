@@ -1,12 +1,13 @@
-package com.rozelux.springbootstrapmvc.service;
+package com.rozelux.springrestjsmvc.service;
 
-import com.rozelux.springbootstrapmvc.DAO.UserRepository;
-import com.rozelux.springbootstrapmvc.model.User;
+import com.rozelux.springrestjsmvc.DAO.UserRepository;
+import com.rozelux.springrestjsmvc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -25,7 +26,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public List<User> listUsers() {
+    public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
@@ -41,6 +42,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User getUser(long id) {
-        return userRepository.getById(id);
+        Optional<User> userOptional = userRepository.findById(id);
+        return userOptional.orElse(null);
     }
 }
