@@ -12,9 +12,10 @@ $(function () {
                 $(async function () {
                     await fillNavbar();
                     await fillTableWithUsers();
+                    await fillUserInformationPage();
                     await getDefaultModal();
                     await createUser();
-                    await fillUserInformationPage();
+
                 })
             } else {
                 $(async function () {
@@ -217,7 +218,8 @@ async function editUser(modal, id) {
     let modalBody = modal.querySelector('.modal-body')
 
     //создать селектор всех ролей
-    let selector = `<label for="listRoles" class="fw-bold"><b>Role</b></label><select class="form-control" name="listRoles" id="listRoles" multiple size="${roles.length}">`
+    let selector = `<label for="listRoles" class="fw-bold"><b>Role</b></label>
+    <select class="form-control" name="listRoles" id="listRoles" multiple size="${roles.length}">`
     roles.forEach(role => {
         selector += `<option value="${role.role}">${role.role}</option>`
     })
@@ -249,7 +251,7 @@ async function editUser(modal, id) {
                 
                 <div class="form-group text-center">
                 <label for="password" class="center-block"><b>Password</b></label>
-                <input class="form-control" type="password" id="password" name="password"><br></div>
+                <input class="form-control" type="password" id="password" name="password" required><br></div>
                 
                 <!--Roles-->
                 <div class="form-group text-center">${selector}</div>
@@ -270,7 +272,10 @@ async function editUser(modal, id) {
         let lastName = document.querySelector("#lastName").value.trim()
         let age = document.querySelector("#age").value.trim()
         let mail = document.querySelector("#mail").value.trim()
+        mail = mail === "" ? null: mail
         let password = document.querySelector("#password").value
+        password = password === "" ? null: password
+
         let roles = []
 
         getSelectValues(document.querySelector("#listRoles")).forEach(str => {
@@ -298,9 +303,9 @@ async function editUser(modal, id) {
             let bsmodal = bootstrap.Modal.getInstance(modal)
             bsmodal.hide()
         } else {
-            let body = await response.json()
+            let message = "Something went wrong, please check fields filled correctly or contact a developer"
             let alert = new DOMParser().parseFromString(`<div class="alert alert-danger alert-dismissible fade show col-12" role="alert" id="errorMessage">
-                            ${body.info}
+                            ${message}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>`,"text/html").getElementById("errorMessage")
 
@@ -419,7 +424,10 @@ async function createUser () {
         let lastName = document.querySelector("#newLastName").value.trim();
         let age = document.querySelector("#newAge").value.trim();
         let mail = document.querySelector("#newMail").value.trim();
+        mail = mail === "" ? null: mail
         let password = document.querySelector("#newPassword").value;
+        password = password === "" ? null: password
+
         let roles = []
 
         getSelectValues(document.querySelector("#newListRoles")).forEach(str => {
@@ -437,22 +445,25 @@ async function createUser () {
             roles: roles
         }
 
-        const response = await userFetchService.addNewUser(user);
+        console.log(user)
 
-        if (response.ok) {
-            await fillNavbar()
-            await fillUserInformationPage()
-            await fillTableWithUsers()
-        } else {
-            let body = await response.json()
-            let alert = new DOMParser().parseFromString(`<div class="alert alert-danger alert-dismissible fade show col-12" role="alert" id="errorMessage">
-                            ${body.info}
+            const response = await userFetchService.updateUser(user);
+
+
+            if (response.ok) {
+                await fillTableWithUsers()
+                let adminTab = document.querySelector('#nav-allUsers-tab')
+                let bsUserTab = new bootstrap.Tab(adminTab)
+                bsUserTab.show()
+            } else {
+                let message = "Something went wrong, please check fields filled correctly or contact a developer"
+                let alert = new DOMParser().parseFromString(`<div class="alert alert-danger alert-dismissible fade show col-12" role="alert" id="errorMessageNew">
+                            ${message}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>`,"text/html").getElementById("errorMessage")
+                        </div>`,"text/html").getElementById("errorMessageNew")
 
-            document.querySelector('h5').prepend(alert)
-        }
+                document.querySelector('#card').prepend(alert)
+            }
     })
 
 }
-

@@ -4,6 +4,7 @@ import com.rozelux.springrestjsmvc.DAO.RoleRepository;
 import com.rozelux.springrestjsmvc.DAO.UserRepository;
 import com.rozelux.springrestjsmvc.model.Role;
 import com.rozelux.springrestjsmvc.model.User;
+import com.rozelux.springrestjsmvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ import java.util.Set;
 public class DbInit {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
     @Autowired
     RoleRepository roleRepository;
 
@@ -29,13 +30,13 @@ public class DbInit {
         adminRoles.add(roleRepository.save(new Role("ROLE_USER")));
         admin.setRoles(adminRoles);
 
-        userRepository.save(admin);
+        userService.add(admin);
 
         User user = new User("user", "user", "user@mail.ru", 30, "user");
         HashSet<Role> userRoles = new HashSet<>();
         userRoles.add(roleRepository.findRoleByRole("ROLE_USER"));
         user.setRoles(userRoles);
 
-        userRepository.save(user);
+        userService.add(user);
     }
 }

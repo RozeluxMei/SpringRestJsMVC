@@ -3,6 +3,8 @@ package com.rozelux.springrestjsmvc.service;
 import com.rozelux.springrestjsmvc.DAO.UserRepository;
 import com.rozelux.springrestjsmvc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +18,16 @@ public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
 
     @Autowired
+    PasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
     public UserServiceImp(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public void add(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -37,6 +43,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void update(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 

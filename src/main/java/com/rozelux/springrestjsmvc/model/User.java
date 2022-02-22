@@ -22,11 +22,11 @@ public class User implements UserDetails {
     private String firstName;
     @Column (name = "last_name")
     private String lastName;
-    @Column (name = "mail")
+    @Column (name = "mail", nullable = false)
     private String mail;
     @Column (name = "age")
     private int age;
-    @Column (name = "password")
+    @Column (name = "password", nullable = false)
     private String password;
 
     @ManyToMany (cascade = {CascadeType.MERGE,
